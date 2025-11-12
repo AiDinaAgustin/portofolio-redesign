@@ -7,8 +7,7 @@ import { CloudArrowUpIcon, LockClosedIcon, ServerIcon } from '@heroicons/react/2
 import Image from 'next/image'
 import Link from 'next/link'
 import { CheckIcon } from "@heroicons/react/20/solid";  
-import { MessageSquare } from "lucide-react"
-import { Mail, Phone, Linkedin, Github, FileDown } from "lucide-react"
+import Contact from './components/Contact'
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -752,89 +751,8 @@ function NotificationSettings() {
       </div>
       </div>
 
-      {/* Contact */}
-      <div className="bg-gray-900 py-24 sm:py-32 relative overflow-hidden">
-
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
-            Get In Touch
-          </h2>
-          <p className="mt-3 text-lg text-gray-300">
-            Let’s connect and create something awesome together.
-          </p>
-        </div>
-
-        {/* Kontak Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-white">
-          {/* Whatsapp */}
-          <div className="bg-gradient-to-br from-purple-900/50 to-indigo-800/40 rounded-2xl p-6 shadow-lg hover:shadow-purple-800/40 transition">
-            <div className="flex items-center justify-between mb-3">
-              <Phone className="w-6 h-6 text-purple-400" />
-              <span className="text-sm text-gray-400">Always Available</span>
-            </div>
-            <h3 className="text-xl font-semibold">WhatsApp</h3>
-            <p className="mt-2 text-gray-300">0856 5957 3835</p>
-          </div>
-
-          {/* Email */}
-          <div className="bg-gradient-to-br from-indigo-900/50 to-purple-800/40 rounded-2xl p-6 shadow-lg hover:shadow-indigo-700/40 transition">
-            <div className="flex items-center justify-between mb-3">
-              <Mail className="w-6 h-6 text-indigo-400" />
-              <span className="text-sm text-gray-400">For Work & Projects</span>
-            </div>
-            <h3 className="text-xl font-semibold">Email</h3>
-            <p className="mt-2 text-gray-300">aidinaagustin2@gmail.com</p>
-          </div>
-
-          {/* LinkedIn */}
-          <div className="bg-gradient-to-br from-[#14203a] to-[#1f2a4d] rounded-2xl p-6 shadow-lg hover:shadow-indigo-500/30 transition">
-            <div className="flex items-center justify-between mb-3">
-              <Linkedin className="w-6 h-6 text-blue-400" />
-              <span className="text-sm text-gray-400">Connect with me</span>
-            </div>
-            <Link href="linkedin.com/in/aidina-agustin/" className="text-xl font-semibold">LinkedIn</Link>
-            <p className="mt-2 text-gray-300">/aidina-agustin</p>
-          </div>
-
-          {/* GitHub */}
-          <div className="bg-gradient-to-br from-[#1e1633] to-[#2b1b47] rounded-2xl p-6 shadow-lg hover:shadow-purple-600/30 transition">
-            <div className="flex items-center justify-between mb-3">
-              <Github className="w-6 h-6 text-gray-300" />
-              <span className="text-sm text-gray-400">My Repositories</span>
-            </div>
-            <Link href="https://github.com/AiDinaAgustin" className="text-xl font-semibold">Github</Link>
-            <p className="mt-2 text-gray-300">/AiDinaAgustin</p>
-          </div>
-
-          {/* Download CV */}
-          <div className="md:col-span-2 bg-gradient-to-br from-[#3b1030] to-[#501b44] rounded-2xl p-6 shadow-lg hover:shadow-pink-700/30 transition">
-            <div className="flex items-center justify-between mb-3">
-              <FileDown className="w-6 h-6 text-pink-400" />
-              <span className="text-sm text-gray-400">Updated Nov 2025</span>
-            </div>
-            <h3 className="text-xl font-semibold">Download CV</h3>
-            <p className="mt-2 text-gray-300">Grab the latest version of my portfolio CV.</p>
-          </div>
-        </div>
-
-        {/* Bagian logo di bawah */}
-        <div className="mt-24 text-center">
-          <h2 className="text-lg font-semibold leading-8 text-white">
-            Trusted by the world’s most innovative teams
-          </h2>
-          <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 
-            sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-            <Image alt="Transistor" src="https://tailwindcss.com/plus-assets/img/logos/158x48/transistor-logo-white.svg" width={158} height={48} className="col-span-2 max-h-12 w-full object-contain lg:col-span-1" />
-            <Image alt="Reform" src="https://tailwindcss.com/plus-assets/img/logos/158x48/reform-logo-white.svg" width={158} height={48} className="col-span-2 max-h-12 w-full object-contain lg:col-span-1" />
-            <Image alt="Tuple" src="https://tailwindcss.com/plus-assets/img/logos/158x48/tuple-logo-white.svg" width={158} height={48} className="col-span-2 max-h-12 w-full object-contain lg:col-span-1" />
-            <Image alt="SavvyCal" src="https://tailwindcss.com/plus-assets/img/logos/158x48/savvycal-logo-white.svg" width={158} height={48} className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1" />
-            <Image alt="Statamic" src="https://tailwindcss.com/plus-assets/img/logos/158x48/statamic-logo-white.svg" width={158} height={48} className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1" />
-          </div>
-        </div>
-      </div>
-      </div>
+      <Contact />
+      
     </div>
   )
 }
