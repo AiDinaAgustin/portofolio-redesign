@@ -130,7 +130,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <div className="bg-gray-900 min-h-screen relative isolate">
+      <div className="bg-gray-900 relative isolate">
       <header className="absolute inset-x-0 top-0 z-50">
         <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
           <div className="flex lg:flex-1">
@@ -183,7 +183,7 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <main className="relative isolate px-6 pt-24 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto py-32 sm:py-48 lg:py-56">
+        <div className="text-center max-w-2xl mx-auto py-20 sm:py-24 lg:py-32">
           <h1 className="text-5xl font-semibold tracking-tight text-white sm:text-7xl">
             Data to enrich your online business
           </h1>
@@ -592,8 +592,7 @@ function NotificationSettings() {
       </div>
       </section>
 
-      <section className="relative isolate overflow-hidden bg-gray-900 px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
-      {/* --- Background pattern --- */}
+      <div className="relative isolate overflow-hidden bg-gray-900 px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <svg
           aria-hidden="true"
@@ -601,11 +600,11 @@ function NotificationSettings() {
         >
           <defs>
             <pattern
-              id="grid-pattern"
-              x="50%"
-              y={-1}
+              id="e813992c-7d03-4cc4-a2bd-151760b470a0"
               width={200}
               height={200}
+              x="50%"
+              y={-1}
               patternUnits="userSpaceOnUse"
             >
               <path d="M100 200V.5M.5 .5H200" fill="none" />
@@ -617,13 +616,12 @@ function NotificationSettings() {
               strokeWidth={0}
             />
           </svg>
-          <rect fill="url(#grid-pattern)" width="100%" height="100%" strokeWidth={0} />
+          <rect fill="url(#e813992c-7d03-4cc4-a2bd-151760b470a0)" width="100%" height="100%" strokeWidth={0} />
         </svg>
       </div>
 
-      {/* --- Content --- */}
       <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
-        {/* --- Title & Description --- */}
+        {/* TEKS BAGIAN ATAS */}
         <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
           <div className="lg:pr-4">
             <div className="lg:max-w-lg">
@@ -632,94 +630,125 @@ function NotificationSettings() {
                 A better workflow
               </h1>
               <p className="mt-6 text-xl text-gray-300">
-                Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit
-                dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas.
+                Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam
+                eget aliquam. Quisque id at vitae feugiat egestas.
               </p>
             </div>
           </div>
         </div>
 
-        {/* --- Image Section --- */}
+        {/* GAMBAR UTAMA */}
         <div className="-mt-12 -ml-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
-          <div className="relative w-[40rem] max-w-none rounded-xl bg-gray-800 shadow-xl ring-1 ring-white/10 sm:w-[38rem]">
-            <Image
-              src="https://tailwindcss.com/plus-assets/img/component-images/dark-project-app-screenshot.png"
-              alt="App screenshot"
-              width={1000}
-              height={800}
-              className="rounded-xl"
-              priority
-            />
-          </div>
+          <Image
+            src="https://tailwindcss.com/plus-assets/img/component-images/dark-project-app-screenshot.png"
+            alt="Dark project app screenshot"
+            width={1200} // ukurannya disesuaikan
+            height={800}
+            className="max-w-none rounded-xl bg-gray-800 shadow-xl ring-1 ring-white/10 w-[900px] sm:w-[912px]"
+          />
         </div>
 
-        {/* --- Text Details --- */}
+        {/* BAGIAN BAWAH */}
         <div className="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
           <div className="lg:pr-4">
             <div className="max-w-xl text-base text-gray-400 lg:max-w-lg">
               <p>
-                Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis
-                mauris semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio
-                penatibus risus viverra tellus varius sit neque erat velit.
+                Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet
+                vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque
+                erat velit.
               </p>
 
               <ul role="list" className="mt-8 space-y-8 text-gray-400">
                 <li className="flex gap-x-3">
-                  <CloudArrowUpIcon
-                    aria-hidden="true"
-                    className="mt-1 size-5 flex-none text-indigo-400"
-                  />
+                  <CloudArrowUpIcon className="mt-1 h-5 w-5 flex-none text-indigo-400" />
                   <span>
-                    <strong className="font-semibold text-white">Push to deploy.</strong>{" "}
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores impedit
-                    suscipit eaque, iste dolor cupiditate blanditiis ratione.
+                    <strong className="font-semibold text-white">Push to deploy.</strong> Lorem ipsum dolor sit amet,
+                    consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate
+                    blanditiis ratione.
                   </span>
                 </li>
                 <li className="flex gap-x-3">
-                  <LockClosedIcon
-                    aria-hidden="true"
-                    className="mt-1 size-5 flex-none text-indigo-400"
-                  />
+                  <LockClosedIcon className="mt-1 h-5 w-5 flex-none text-indigo-400" />
                   <span>
-                    <strong className="font-semibold text-white">SSL certificates.</strong>{" "}
-                    Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem
-                    cupidatat commodo.
+                    <strong className="font-semibold text-white">SSL certificates.</strong> Anim aute id magna aliqua ad
+                    ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.
                   </span>
                 </li>
                 <li className="flex gap-x-3">
-                  <ServerIcon
-                    aria-hidden="true"
-                    className="mt-1 size-5 flex-none text-indigo-400"
-                  />
+                  <ServerIcon className="mt-1 h-5 w-5 flex-none text-indigo-400" />
                   <span>
-                    <strong className="font-semibold text-white">Database backups.</strong>{" "}
-                    Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit
-                    morbi lobortis.
+                    <strong className="font-semibold text-white">Database backups.</strong> Ac tincidunt sapien vehicula
+                    erat auctor pellentesque rhoncus.
                   </span>
                 </li>
               </ul>
 
               <p className="mt-8">
-                Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id
-                blandit molestie auctor fermentum dignissim. Lacus diam tincidunt ac cursus in
-                vel. Mauris varius vulputate et ultrices hac adipiscing egestas.
+                Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie auctor
+                fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac
+                adipiscing egestas.
               </p>
 
-              <h2 className="mt-16 text-2xl font-bold tracking-tight text-white">
-                No server? No problem.
-              </h2>
+              <h2 className="mt-16 text-2xl font-bold tracking-tight text-white">No server? No problem.</h2>
               <p className="mt-6">
-                Id orci tellus laoreet id ac. Dolor, aenean leo, ac etiam consequat in.
-                Convallis arcu ipsum urna nibh. Pharetra, euismod vitae interdum mauris enim,
-                consequat vulputate nibh. Maecenas pellentesque id sed tellus mauris, ultrices
-                mauris. Tincidunt enim cursus ridiculus mi. Pellentesque nam sed nullam sed diam
-                turpis ipsum eu a sed convallis diam.
+                Id orci tellus laoreet id ac. Dolor, aenean leo, ac etiam consequat in. Convallis arcu ipsum urna nibh.
+                Pharetra, euismod vitae interdum mauris enim, consequat vulputate nibh.
               </p>
             </div>
           </div>
         </div>
       </div>
-      </section>
+      </div>
+
+      <div className="bg-gray-900 py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <h2 className="text-center text-lg font-semibold leading-8 text-white">
+          Trusted by the world’s most innovative teams
+        </h2>
+
+        <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+          <Image
+            alt="Transistor"
+            src="https://tailwindcss.com/plus-assets/img/logos/158x48/transistor-logo-white.svg"
+            width={158}
+            height={48}
+            className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+          />
+
+          <Image
+            alt="Reform"
+            src="https://tailwindcss.com/plus-assets/img/logos/158x48/reform-logo-white.svg"
+            width={158}
+            height={48}
+            className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+          />
+
+          <Image
+            alt="Tuple"
+            src="https://tailwindcss.com/plus-assets/img/logos/158x48/tuple-logo-white.svg"
+            width={158}
+            height={48}
+            className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+          />
+
+          <Image
+            alt="SavvyCal"
+            src="https://tailwindcss.com/plus-assets/img/logos/158x48/savvycal-logo-white.svg"
+            width={158}
+            height={48}
+            className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
+          />
+
+          <Image
+            alt="Statamic"
+            src="https://tailwindcss.com/plus-assets/img/logos/158x48/statamic-logo-white.svg"
+            width={158}
+            height={48}
+            className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+          />
+        </div>
+      </div>
+      </div>
     </div>
   )
 }
