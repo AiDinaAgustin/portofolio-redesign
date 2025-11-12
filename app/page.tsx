@@ -161,7 +161,7 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <main className="relative isolate px-6 py-24 pt-24 lg:px-8">
+      <main className="relative isolate px-6 py-24 pt-40 lg:px-8">
         <div className="text-center max-w-2xl mx-auto py-20 sm:py-24 lg:py-32">
           <p className="mt-8 text-lg text-gray-400 sm:text-xl">
             Welcome to My Digital Space!
