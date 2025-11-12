@@ -34,12 +34,21 @@ body {
   }
 }
 
+@keyframes marquee-right-offset {
+  0% {
+    transform: translateX(-33.333%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
 @keyframes marquee-left {
   0% {
     transform: translateX(0%);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-33.333%);
   }
 }
 
@@ -47,7 +56,11 @@ body {
   animation: marquee-right 30s linear infinite;
 }
 
+.animate-marquee-right-offset {
+  animation: marquee-right-offset 45s linear infinite;
+}
+
 .animate-marquee-left {
-  animation: marquee-left 30s linear infinite;
+  animation: marquee-left 45s linear infinite;
 }
 

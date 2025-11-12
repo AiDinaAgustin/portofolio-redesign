@@ -77,13 +77,13 @@ const SkillMarquee = () => {
         </p>
 
         <div className="space-y-8">
-          {/* Baris Pertama - Gerak ke Kanan */}
+          {/* Baris Pertama - Gerak ke Kanan (dimulai dari MongoDB) */}
           <div className="relative overflow-hidden">
-            <div className="flex gap-12 animate-marquee-right">
-              {[...skillsRow1, ...skillsRow1].map((skill, i) => (
+            <div className="flex gap-12 animate-marquee-right-offset">
+              {[...skillsRow1, ...skillsRow1, ...skillsRow1].map((skill, i) => (
                 <div
                   key={i}
-                  className="flex flex-col items-center gap-2 min-w-20"
+                  className="flex flex-col items-center gap-2 min-w-20 shrink-0"
                 >
                   <skill.Icon className="text-white text-6xl opacity-80 hover:opacity-100 hover:scale-110 transition-all duration-300" />
                   <span className="text-xs text-gray-400 whitespace-nowrap">
@@ -97,10 +97,10 @@ const SkillMarquee = () => {
           {/* Baris Kedua - Gerak ke Kiri */}
           <div className="relative overflow-hidden">
             <div className="flex gap-12 animate-marquee-left">
-              {[...skillsRow2, ...skillsRow2].map((skill, i) => (
+              {[...skillsRow2, ...skillsRow2, ...skillsRow2].map((skill, i) => (
                 <div
                   key={i}
-                  className="flex flex-col items-center gap-2 min-w-20"
+                  className="flex flex-col items-center gap-2 min-w-20 shrink-0"
                 >
                   <skill.Icon className="text-white text-6xl opacity-80 hover:opacity-100 hover:scale-110 transition-all duration-300" />
                   <span className="text-xs text-gray-400 whitespace-nowrap">
