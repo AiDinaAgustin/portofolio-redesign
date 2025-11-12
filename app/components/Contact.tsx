@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { Mail, Phone, Linkedin, Github, FileDown } from "lucide-react"
 
