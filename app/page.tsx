@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { CheckIcon } from "@heroicons/react/20/solid";  
 import Contact from './components/Contact'
 import HeroParticles from "./components/HeroParticles";
+import SkillMarquee from "./components/SkillMarquee";
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -667,7 +668,7 @@ function NotificationSettings() {
       </div>
       </div>
 
-      <div className=" py-24 sm:py-32">
+      {/* <div className=" py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <h2 className="text-center text-lg font-semibold leading-8 text-white">
           Trusted by the world’s most innovative teams
@@ -715,7 +716,9 @@ function NotificationSettings() {
           />
         </div>
       </div>
-      </div>
+      </div> */}
+
+      <SkillMarquee />
 
       <Contact />
       
