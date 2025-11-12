@@ -12,7 +12,7 @@ export default function Contact() {
   return (
     <div>
       {/* Contact */}
-      <div className="bg-gray-900 py-24 sm:py-32 overflow-hidden">
+      <div className=" py-24 sm:py-32 overflow-hidden">
       <HeroParticles />
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}

@@ -72,16 +72,34 @@ export default function HeroParticles() {
               enable: true,
               area: 1000,
             },
-            value: 60,
+            value: 80,
           },
           opacity: {
             value: 0.6,
+            animation: {
+              enable: true,
+              speed: 0.3,
+              minimumValue: 0.3,
+              sync: false,
+            },
           },
           shape: {
-            type: "circle",
+            type: ["circle", "circle", "circle", "bubble"],
           },
           size: {
-            value: { min: 1, max: 3 },
+            value: { min: 1, max: 4 },
+            animation: {
+              enable: true,
+              speed: 1,
+              minimumValue: 1,
+              sync: false,
+            },
+          },
+          stroke: {
+            width: 1,
+            color: {
+              value: "#a855f7",
+            },
           },
         },
         detectRetina: true,
