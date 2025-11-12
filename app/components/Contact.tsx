@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Mail, Phone, Linkedin, Github, FileDown } from "lucide-react"
+import HeroParticles from "./HeroParticles";
 
 
 export default function Contact() {
@@ -11,8 +12,8 @@ export default function Contact() {
   return (
     <div>
       {/* Contact */}
-      <div className="bg-gray-900 py-24 sm:py-32 relative overflow-hidden">
-
+      <div className="bg-gray-900 py-24 sm:py-32 overflow-hidden">
+      <HeroParticles />
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
