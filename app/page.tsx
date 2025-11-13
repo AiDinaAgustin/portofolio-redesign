@@ -11,6 +11,7 @@ import Contact from './components/Contact'
 import HeroParticles from "./components/HeroParticles";
 import SkillMarquee from "./components/SkillMarquee";
 import HeroSection from "./components/HeroSection";
+import WorkExperience from "./components/WorkExperience";
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -135,7 +136,7 @@ export default function HomePage() {
   return (
     <div>
       <HeroParticles />
-      
+
       <HeroSection />
 
       <div className="overflow-hidden py-24 sm:py-32">
@@ -655,6 +656,8 @@ function NotificationSettings() {
       </div> */}
 
       <SkillMarquee />
+
+      <WorkExperience />
 
       <Contact />
       
