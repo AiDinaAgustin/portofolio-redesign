@@ -180,7 +180,7 @@ const WorkExperience = () => {
                 <div className="col-span-12 sm:col-span-2 flex justify-end">
                   <button
                     onClick={() => toggleExpand(exp.id)}
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-semibold text-sm transition-colors duration-200"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-semibold text-sm transition-colors duration-200"
                   >
                     {expandedId === exp.id ? 'Hide' : 'Show'}
                     <svg
@@ -208,19 +208,12 @@ const WorkExperience = () => {
                   expandedId === exp.id ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                 }`}
               >
-                <div className="grid grid-cols-12 gap-4 py-6 pl-16">
-                  <div className="col-span-12 sm:col-span-8">
-                    <h4 className="text-sm font-semibold text-gray-400 mb-3">
-                      Explain more
-                    </h4>
-                    <p className="text-gray-300 text-sm leading-relaxed mb-4">
-                      {exp.achievements}
-                    </p>
-                    
-                    {exp.statistics && (
-                      <div className="bg-gray-900/30 rounded-lg p-4 border border-white/10 mt-4">
+                <div className="grid grid-cols-12 gap-8 py-6 pl-16">
+                  {/* Statistics Section - Left Side */}
+                  {exp.statistics && (
+                    <div className="col-span-12 sm:col-span-4">
+                      <div className="p-4">
                         <h5 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-                          <span className="text-yellow-500">★</span>
                           Statistics
                         </h5>
                         <div className="space-y-3">
@@ -236,7 +229,7 @@ const WorkExperience = () => {
                                   style={{ width: `${stat.percentage}%` }} 
                                 />
                               </div>
-                              <span className={`text-xs font-medium min-w-[120px] ${
+                              <span className={`text-xs font-medium min-w-[60px] ${
                                 stat.color === 'green' ? 'text-green-400' : 'text-yellow-400'
                               }`}>
                                 {stat.percentage}% {stat.label}
@@ -245,7 +238,17 @@ const WorkExperience = () => {
                           ))}
                         </div>
                       </div>
-                    )}
+                    </div>
+                  )}
+                  
+                  {/* Explain More Section - Right Side */}
+                  <div className={`col-span-12 ${exp.statistics ? 'sm:col-span-8' : 'sm:col-span-12'}`}>
+                    <h4 className="text-sm font-semibold text-gray-400 mb-3">
+                      Explain more
+                    </h4>
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      {exp.achievements.join('. ')}. Functional development. With experience across design systems, user experience, and front-end technologies. I focus on crafting products that are not just beautiful—but intuitive and impactful. Every project I take on is rooted in a belief that good design solves real problems and tells meaningful stories.
+                    </p>
                   </div>
                 </div>
               </div>
