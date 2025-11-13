@@ -141,7 +141,7 @@ const WorkExperience = () => {
         </div>
 
         {/* Experience List */}
-        <div className="space-y-6">
+        <div className="space-y-6 bg-gray-900/40 px-8 py-6">
           {experiences.map((exp) => (
             <div key={exp.id} className="relative">
               {/* Main Row */}
@@ -155,7 +155,7 @@ const WorkExperience = () => {
 
                 {/* Year & Position */}
                 <div className="col-span-12 sm:col-span-3">
-                  <p className="text-xs text-gray-500 mb-1">{exp.year}</p>
+                  <p className="text-xs text-gray-500 mb-3">{exp.year}</p>
                   <h3 className="text-base font-semibold text-white">
                     {exp.position}
                   </h3>
@@ -163,7 +163,7 @@ const WorkExperience = () => {
 
                 {/* Location */}
                 <div className="col-span-12 sm:col-span-3">
-                  <p className="text-xs text-gray-500 mb-1">Location Work</p>
+                  <p className="text-xs text-gray-500 mb-3">Location Work</p>
                   <div className="flex items-center gap-2">
                     <span className="text-base">{exp.flag}</span>
                     <span className="text-sm text-white">{exp.location}</span>
@@ -172,7 +172,7 @@ const WorkExperience = () => {
 
                 {/* Position Role */}
                 <div className="col-span-12 sm:col-span-3">
-                  <p className="text-xs text-gray-500 mb-1">Position</p>
+                  <p className="text-xs text-gray-500 mb-3">Position</p>
                   <p className="text-sm text-white">Internship UI/UX Design</p>
                 </div>
 
@@ -180,7 +180,11 @@ const WorkExperience = () => {
                 <div className="col-span-12 sm:col-span-2 flex justify-end">
                   <button
                     onClick={() => toggleExpand(exp.id)}
-                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-semibold text-sm transition-colors duration-200"
+                    className={`flex items-center gap-2 px-5 py-3.5 rounded-full font-light text-sm transition-colors duration-200 ${
+                      expandedId === exp.id 
+                        ? 'bg-yellow-500 hover:bg-yellow-400 text-gray-900' 
+                        : 'bg-gray-900/90 hover:bg-gray-900/80 text-white' 
+                    }`}
                   >
                     {expandedId === exp.id ? 'Hide' : 'Show'}
                     <svg
