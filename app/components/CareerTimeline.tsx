@@ -52,35 +52,63 @@ const getTopPosition = (item: CareerItem) => {
 }
 
 
-  // Cache posisi yang sudah dihitung untuk menghindari infinite loop
-  const positionCache = new Map<number, string>()
+  // Cache posisi yang sudah dihitung
+  const positionCache = new Map<number, number>() // Menyimpan column index (0, 1, 2, ...)
 
-const getItemBounds = (item: CareerItem) => {
-  const top = getOffset(item.endYear ?? item.startYear, item.endMonth ?? item.startMonth)
-  const height = getItemHeight(item)
-  return { top, bottom: top + height }
-}
-
-  // Fungsi untuk mendeteksi overlap dan menentukan posisi horizontal
-const getHorizontalPosition = (currentIndex: number): string => {
-  if (positionCache.has(currentIndex)) return positionCache.get(currentIndex)!
-
-  const current = getItemBounds(data[currentIndex])
-
-  for (let i = 0; i < currentIndex; i++) {
-    const prev = getItemBounds(data[i])
-
-    if (current.top < prev.bottom + 10 && current.bottom > prev.top - 10) {
-      const prevPos = getHorizontalPosition(i)
-      const pos = prevPos === 'left-40' ? 'left-[420px]' : 'left-40'
-      positionCache.set(currentIndex, pos)
-      return pos
-    }
+  const getItemBounds = (item: CareerItem) => {
+    const top = getTopPosition(item)
+    const height = getItemHeight(item)
+    return { top, bottom: top + height }
   }
 
-  positionCache.set(currentIndex, 'left-40')
-  return 'left-40'
-}
+  // Fungsi untuk mendeteksi overlap dan menentukan posisi horizontal
+  const getHorizontalPosition = (currentIndex: number): number => {
+    if (positionCache.has(currentIndex)) return positionCache.get(currentIndex)!
+
+    const current = getItemBounds(data[currentIndex])
+    
+    // Kumpulkan semua item yang overlap secara vertikal dengan current item
+    const overlappingItems: number[] = []
+    
+    for (let i = 0; i < currentIndex; i++) {
+      const prev = getItemBounds(data[i])
+      
+      // Cek apakah ada overlap vertikal (dengan margin 30px untuk spacing)
+      const hasOverlap = !(current.top > prev.bottom + 30 || current.bottom < prev.top - 30)
+      
+      if (hasOverlap) {
+        overlappingItems.push(i)
+      }
+    }
+
+    // Jika tidak ada overlap, taruh di kolom 0 (paling kiri)
+    if (overlappingItems.length === 0) {
+      positionCache.set(currentIndex, 0)
+      return 0
+    }
+
+    // Kumpulkan semua kolom yang sudah dipakai oleh item yang overlap
+    const usedColumns = new Set<number>()
+    for (const itemIndex of overlappingItems) {
+      const col = getHorizontalPosition(itemIndex)
+      usedColumns.add(col)
+    }
+
+    // Cari kolom pertama yang kosong (tidak dipakai)
+    let column = 0
+    while (usedColumns.has(column)) {
+      column++
+    }
+
+    positionCache.set(currentIndex, column)
+    return column
+  }
+
+  // Konversi column index ke class CSS
+  const getColumnClass = (column: number): string => {
+    const positions = ['left-40', 'left-[420px]', 'left-[800px]']
+    return positions[column] || 'left-[420px]'
+  }
 
   return (
     <div className="relative mx-auto w-full max-w-5xl px-8 py-20 text-white"
@@ -118,8 +146,9 @@ style={{ top: getOffset(year, 1) - 10 }}
       {data.map((item, i) => {
         const top = getTopPosition(item)
         const height = getItemHeight(item)
-        const horizontalPos = getHorizontalPosition(i)
-        const bgColor = horizontalPos === 'left-40' ? 'bg-[#0d2b2b]/70' : 'bg-[#1a0f35]/70'
+        const column = getHorizontalPosition(i)
+        const horizontalPos = getColumnClass(column)
+        const bgColor = column === 0 ? 'bg-[#0d2b2b]/70' : (column === 1 ? 'bg-[#1a0f35]/70' : 'bg-[#2b1a0d]/70')
         
         return (
           <div
