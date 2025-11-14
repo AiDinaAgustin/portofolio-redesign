@@ -12,6 +12,7 @@ import HeroParticles from "./components/HeroParticles";
 import SkillMarquee from "./components/SkillMarquee";
 import HeroSection from "./components/HeroSection";
 import WorkExperience from "./components/WorkExperience";
+import CareerTimeline from './components/CareerTimeline'
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -126,6 +127,39 @@ const posts = [
   },
 ];
 
+const data = [
+    {
+      title: 'Education',
+      company: 'STMIK Mardira Indonesia',
+      location: 'Computer Science',
+      startYear: 2021,
+      startMonth: 10,
+      endYear: 2025,
+      endMonth: 6,
+    },
+    {
+      title: 'Web Developer',
+      company: 'PT. Oasis Mitra Tritunggal / Cursor.ID',
+      startYear: 2022,
+      startMonth: 9,
+      endYear: 2023,
+      endMonth: 9,
+    },
+    {
+      title: 'Fullstack Developer Intern',
+      company: 'Cybertech Kinetics',
+      startYear: 2023,
+      startMonth: 10,
+      endYear: 2024,
+      endMonth: 3,
+    },
+    {
+      title: 'Freelance',
+      startYear: 2025,
+      startMonth: 1,
+    },
+  ]
+
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -138,6 +172,12 @@ export default function HomePage() {
       <HeroParticles />
 
       <HeroSection />
+
+      <SkillMarquee />
+
+      <WorkExperience />
+
+      <CareerTimeline data={data} startYear={2021} endYear={2025} />
 
       <div className="overflow-hidden py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -654,11 +694,6 @@ function NotificationSettings() {
         </div>
       </div>
       </div> */}
-
-      <SkillMarquee />
-
-      <WorkExperience />
-
       <Contact />
       
     </div>

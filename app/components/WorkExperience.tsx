@@ -1,9 +1,11 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 
 interface Experience {
   id: number;
-  year: string;
+  startDate: string; // Format: YYYY-MM
+  endDate: string; // Format: YYYY-MM
   position: string;
   company: string;
   location: string;
@@ -21,12 +23,13 @@ interface Experience {
 const experiences: Experience[] = [
   {
     id: 1,
-    year: "2019-2019",
-    position: "UI/UX Designer at Onpoint Studio",
+    startDate: "2024-10",
+    endDate: "2025-09",
+    position: "UI/UX Designer",
     company: "Onpoint Studio",
     location: "Indonesia, Cilacap",
     country: "Indonesia",
-    flag: "🇮🇩",
+    flag: "/flags/id.png",
     description: "Whether it's designing a sleek user interface or writing code that brings it to life.",
     achievements: [
       "Designed user interfaces for 10+ web applications",
@@ -40,12 +43,13 @@ const experiences: Experience[] = [
   },
   {
     id: 2,
-    year: "2019-2019",
-    position: "UI/UX Designer at Onpoint Studio",
+    startDate: "2023-06",
+    endDate: "2024-03",
+    position: "UI/UX Designer",
     company: "Onpoint Studio",
     location: "Germany, Akja",
     country: "Germany",
-    flag: "🇩🇪",
+    flag: "/flags/id.png",
     description: "Whether it's designing a sleek user interface or writing code that brings it to life.",
     achievements: [
       "Led UX research and user testing initiatives",
@@ -59,12 +63,13 @@ const experiences: Experience[] = [
   },
   {
     id: 3,
-    year: "2019-2019",
-    position: "UI/UX Designer at Onpoint Studio",
+    startDate: "2022-01",
+    endDate: "2023-05",
+    position: "UI/UX Designer",
     company: "Onpoint Studio",
     location: "Japanese",
     country: "Japan",
-    flag: "🇯🇵",
+    flag: "/flags/id.png",
     description: "Whether it's designing a sleek user interface or writing code that brings it to life.",
     achievements: [
       "Employee recognition for top-performance across global systems, user experience, and travel and timesheets. I focus on crafting",
@@ -78,12 +83,13 @@ const experiences: Experience[] = [
   },
   {
     id: 4,
-    year: "2019-2019",
-    position: "UI/UX Designer at Onpoint Studio",
+    startDate: "2021-03",
+    endDate: "2021-08",
+    position: "UI/UX Designer",
     company: "Onpoint Studio",
     location: "Germany, Akja",
     country: "Germany",
-    flag: "🇩🇪",
+    flag: "/flags/id.png",
     description: "Whether it's designing a sleek user interface or writing code that brings it to life.",
     achievements: [
       "Managed design projects from concept to launch",
@@ -97,12 +103,13 @@ const experiences: Experience[] = [
   },
   {
     id: 5,
-    year: "2019-2019",
-    position: "UI/UX Designer at Onpoint Studio",
+    startDate: "2019-06",
+    endDate: "2020-12",
+    position: "UI/UX Designer",
     company: "Onpoint Studio",
     location: "Germany, Akja",
     country: "Germany",
-    flag: "🇩🇪",
+    flag: "/flags/id.png",
     description: "Whether it's designing a sleek user interface or writing code that brings it to life.",
     achievements: [
       "Developed innovative design solutions",
@@ -121,6 +128,18 @@ const WorkExperience = () => {
 
   const toggleExpand = (id: number) => {
     setExpandedId(expandedId === id ? null : id);
+  };
+
+  const formatDate = (date: string) => {
+    const [year, month] = date.split('-');
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return `${months[parseInt(month) - 1]} ${year}`;
+  };
+
+  const getDurationMonths = (start: string, end: string): number => {
+    const [startYear, startMonth] = start.split('-').map(Number);
+    const [endYear, endMonth] = end.split('-').map(Number);
+    return (endYear - startYear) * 12 + (endMonth - startMonth) + 1;
   };
 
   return (
@@ -142,10 +161,14 @@ const WorkExperience = () => {
 
         {/* Experience List */}
         <div className="space-y-6 bg-gray-900/40 px-8 py-6">
-          {experiences.map((exp) => (
+          {experiences.map((exp) => {
+            const durationMonths = getDurationMonths(exp.startDate, exp.endDate);
+            const timelineWidth = `${(durationMonths / 12) * 100}%`; // Scale based on months
+            
+            return (
             <div key={exp.id} className="relative">
               {/* Main Row */}
-              <div className="grid grid-cols-12 gap-4 items-center py-6 border-b border-white/10">
+              <div className="grid grid-cols-12 gap-4 items-start py-6 border-b border-white/10">
                 {/* Number */}
                 <div className="col-span-1">
                   <span className="text-3xl font-bold text-white">
@@ -153,11 +176,33 @@ const WorkExperience = () => {
                   </span>
                 </div>
 
-                {/* Year & Position */}
+                {/* Year & Timeline */}
                 <div className="col-span-12 sm:col-span-3">
-                  <p className="text-xs text-gray-500 mb-3">{exp.year}</p>
+                  <p className="text-xs text-gray-500 mb-3">
+                    {formatDate(exp.startDate)} - {formatDate(exp.endDate)}
+                  </p>
+                  {/* Timeline visual */}
+                  <div className="relative mt-2 mb-4">
+                    <div className="h-2 bg-gray-800 rounded-full overflow-hidden" style={{ width: timelineWidth, minWidth: '80px', maxWidth: '100%' }}>
+                      <div className="h-full bg-linear-to-r from-purple-500 to-pink-500 rounded-full relative">
+                        {/* Timeline dots */}
+                        <div className="absolute inset-0 flex justify-between items-center px-1">
+                          {Array.from({ length: Math.min(durationMonths, 12) }).map((_, i) => (
+                            <div 
+                              key={i} 
+                              className="w-1 h-1 bg-white rounded-full"
+                              style={{ 
+                                opacity: i === 0 || i === Math.min(durationMonths, 12) - 1 ? 1 : 0.5 
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    <p className="text-xs text-gray-400 mt-1">{durationMonths} months</p>
+                  </div>
                   <h3 className="text-base font-semibold text-white">
-                    {exp.position}
+                    {exp.company}
                   </h3>
                 </div>
 
@@ -165,7 +210,13 @@ const WorkExperience = () => {
                 <div className="col-span-12 sm:col-span-3">
                   <p className="text-xs text-gray-500 mb-3">Location Work</p>
                   <div className="flex items-center gap-2">
-                    <span className="text-base">{exp.flag}</span>
+                    <Image 
+                      src={exp.flag} 
+                      alt={`${exp.country} flag`}
+                      width={30}
+                      height={25}
+                      className="rounded-sm"
+                    />
                     <span className="text-sm text-white">{exp.location}</span>
                   </div>
                 </div>
@@ -173,16 +224,16 @@ const WorkExperience = () => {
                 {/* Position Role */}
                 <div className="col-span-12 sm:col-span-3">
                   <p className="text-xs text-gray-500 mb-3">Position</p>
-                  <p className="text-sm text-white">Internship UI/UX Design</p>
+                  <p className="text-sm text-white">{exp.position}</p>
                 </div>
 
                 {/* Show/Hide Button */}
                 <div className="col-span-12 sm:col-span-2 flex justify-end">
                   <button
                     onClick={() => toggleExpand(exp.id)}
-                    className={`flex items-center gap-2 px-5 py-3.5 rounded-full font-light text-sm transition-colors duration-200 ${
+                    className={`flex items-center gap-2 px-5 cursor-pointer py-3.5 rounded-full font-light text-sm transition-colors duration-200 ${
                       expandedId === exp.id 
-                        ? 'bg-yellow-500 hover:bg-yellow-400 text-gray-900' 
+                        ? 'bg-purple-900 hover:purple-800 text-white' 
                         : 'bg-gray-900/90 hover:bg-gray-900/80 text-white' 
                     }`}
                   >
@@ -257,7 +308,8 @@ const WorkExperience = () => {
                 </div>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
