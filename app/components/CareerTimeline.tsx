@@ -153,24 +153,59 @@ style={{ top: getOffset(year, 1) - 10 }}
         const horizontalPos = getColumnClass(column)
         const bgColor = column === 0 ? 'bg-[#0d2b2b]/70' : (column === 1 ? 'bg-[#1a0f35]/70' : 'bg-[#0d2b2b]/70')
         
+        // Hitung posisi horizontal card (dalam pixel)
+        const cardLeftPx = column === 0 ? 160 : (column === 1 ? 420 : 800) // left-40 = 160px, dll
+        const timelineLeftPx = 80 // left-20 = 80px
+        
+        // Posisi titik end date di timeline
+        const endDotTop = item.endYear && item.endMonth 
+          ? getOffset(item.endYear, item.endMonth) 
+          : null
+        
         return (
-          <div
-            key={i}
-            className={`absolute w-[320px] rounded-xl p-6 shadow-lg transition-transform duration-300 hover:scale-[1.02] ${horizontalPos} ${bgColor}`}
-            style={{ top, minHeight: height }}
-          >
-            <p className="text-sm text-teal-400">
-              {item.endYear && item.endMonth
-                ? `${getMonthName(item.startMonth)} ${item.startYear} - ${getMonthName(item.endMonth)} ${item.endYear}`
-                : `${getMonthName(item.startMonth)} ${item.startYear} - Now`}
-            </p>
-            <h3 className="mt-1 font-mono text-lg font-bold">{item.title}</h3>
-            {item.company && <p className="text-gray-300">{item.company}</p>}
-            {item.location && <p className="text-gray-400 text-sm">{item.location}</p>}
+          <React.Fragment key={i}>
+            {/* Garis dari card ke titik end date */}
+            {endDotTop !== null && (
+              <svg
+                className="absolute pointer-events-none"
+                style={{
+                  left: timelineLeftPx,
+                  top: Math.min(top, endDotTop),
+                  width: cardLeftPx - timelineLeftPx,
+                  height: Math.abs(endDotTop - top) + 10
+                }}
+              >
+                <line
+                  x1="0"
+                  y1={endDotTop < top ? 0 : Math.abs(endDotTop - top)}
+                  x2={cardLeftPx - timelineLeftPx}
+                  y2={endDotTop < top ? Math.abs(endDotTop - top) : 0}
+                  stroke={column === 0 ? '#2dd4bf' : '#a78bfa'}
+                  strokeWidth="1.5"
+                  strokeDasharray="4 4"
+                  opacity="0.5"
+                />
+              </svg>
+            )}
             
-            {/* Indicator bar untuk durasi */}
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-linear-to-b from-cyan-400/40 to-purple-600/40 rounded-l-xl" />
-          </div>
+            {/* Card */}
+            <div
+              className={`absolute w-[320px] rounded-xl p-6 shadow-lg transition-transform duration-300 hover:scale-[1.02] ${horizontalPos} ${bgColor}`}
+              style={{ top, minHeight: height }}
+            >
+              <p className="text-sm text-teal-400">
+                {item.endYear && item.endMonth
+                  ? `${getMonthName(item.startMonth)} ${item.startYear} - ${getMonthName(item.endMonth)} ${item.endYear}`
+                  : `${getMonthName(item.startMonth)} ${item.startYear} - Now`}
+              </p>
+              <h3 className="mt-1 font-mono text-lg font-bold">{item.title}</h3>
+              {item.company && <p className="text-gray-300">{item.company}</p>}
+              {item.location && <p className="text-gray-400 text-sm">{item.location}</p>}
+              
+              {/* Indicator bar untuk durasi */}
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-linear-to-b from-cyan-400/40 to-purple-600/40 rounded-l-xl" />
+            </div>
+          </React.Fragment>
         )
       })}
     </div>
