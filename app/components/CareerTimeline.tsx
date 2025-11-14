@@ -148,7 +148,7 @@ style={{ top: getOffset(year, 1) - 10 }}
         const height = getItemHeight(item)
         const column = getHorizontalPosition(i)
         const horizontalPos = getColumnClass(column)
-        const bgColor = column === 0 ? 'bg-[#0d2b2b]/70' : (column === 1 ? 'bg-[#1a0f35]/70' : 'bg-[#2b1a0d]/70')
+        const bgColor = column === 0 ? 'bg-[#0d2b2b]/70' : (column === 1 ? 'bg-[#1a0f35]/70' : 'bg-[#0d2b2b]/70')
         
         return (
           <div
