@@ -215,13 +215,6 @@ const data = [
     endMonth: 6,
   },
   {
-    title: 'Full Stack Developer',
-    company: 'Freelance',
-    location: 'Indonesia',
-    startYear: 2025,
-    startMonth: 3,
-  },
-  {
     title: 'Fullstack Developer',
     company: 'PT Tali Cahaya Buana',
     location: 'Cimahi, West Java, Indonesia',

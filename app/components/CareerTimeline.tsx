@@ -26,8 +26,11 @@ export default function CareerTimeline({ data, startYear, endYear }: CareerTimel
   const totalHeight = (endYear - startYear + 1) * 12 * pixelsPerMonth
 
 const getOffset = (year: number, month: number) => {
-  // 0 = endYear Jan
-  return (endYear - year) * 12 * pixelsPerMonth + (month - 1) * pixelsPerMonth
+  // Hitung offset dari startYear January (paling bawah = 0)
+  // Semakin ke atas (tahun lebih baru), offset semakin besar
+  const monthsFromStart = (year - startYear) * 12 + (month - 1)
+  // Balik: yang paling lama (2021 Jan) = totalHeight, yang paling baru (2025 Dec) = 0
+  return totalHeight - (monthsFromStart * pixelsPerMonth)
 }
 
 
