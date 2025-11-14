@@ -20,13 +20,16 @@ interface CareerTimelineProps {
 const months = Array.from({ length: 12 }, (_, i) => i + 1)
 
 export default function CareerTimeline({ data, startYear, endYear }: CareerTimelineProps) {
-  const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i)
+  // Reverse years - dari endYear ke startYear (2025 -> 2021)
+  const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => endYear - i)
   const pixelsPerMonth = 30 // tinggi tiap bulan - dikurangi agar lebih rapat
-  const totalHeight = years.length * 12 * pixelsPerMonth
+  const totalHeight = (endYear - startYear + 1) * 12 * pixelsPerMonth
 
-  const getOffset = (year: number, month: number) => {
-    return (year - startYear) * 12 * pixelsPerMonth + (month - 1) * pixelsPerMonth
-  }
+const getOffset = (year: number, month: number) => {
+  // 0 = endYear Jan
+  return (endYear - year) * 12 * pixelsPerMonth + (month - 1) * pixelsPerMonth
+}
+
 
   const getItemHeight = (item: CareerItem) => {
     // Hitung durasi dalam bulan
@@ -39,29 +42,45 @@ export default function CareerTimeline({ data, startYear, endYear }: CareerTimel
     return durationInMonths * pixelsPerMonth - 20 // Kurangi sedikit untuk spacing
   }
 
-  // Fungsi untuk mendeteksi overlap dan menentukan posisi horizontal
-  const getHorizontalPosition = (currentIndex: number): string => {
-    const current = data[currentIndex]
-    const currentTop = getOffset(current.startYear, current.startMonth)
-    const currentBottom = currentTop + getItemHeight(current)
-
-    // Cek overlap dengan item sebelumnya
-    for (let i = 0; i < currentIndex; i++) {
-      const prev = data[i]
-      const prevTop = getOffset(prev.startYear, prev.startMonth)
-      const prevBottom = prevTop + getItemHeight(prev)
-
-      // Jika ada overlap vertikal
-      if (currentTop < prevBottom && currentBottom > prevTop) {
-        // Jika item sebelumnya di kiri, taruh yang sekarang di kanan
-        const prevPosition: string = getHorizontalPosition(i)
-        return prevPosition === 'left-40' ? 'left-[420px]' : 'left-40'
-      }
-    }
-
-    // Default ke kiri jika tidak ada overlap
-    return 'left-40'
+  // Fungsi untuk mendapatkan posisi top berdasarkan end date (yang lebih baru)
+const getTopPosition = (item: CareerItem) => {
+  if (item.endYear && item.endMonth) {
+    return getOffset(item.endYear, item.endMonth)
   }
+  // still active → position at start date
+  return getOffset(item.startYear, item.startMonth)
+}
+
+
+  // Cache posisi yang sudah dihitung untuk menghindari infinite loop
+  const positionCache = new Map<number, string>()
+
+const getItemBounds = (item: CareerItem) => {
+  const top = getOffset(item.endYear ?? item.startYear, item.endMonth ?? item.startMonth)
+  const height = getItemHeight(item)
+  return { top, bottom: top + height }
+}
+
+  // Fungsi untuk mendeteksi overlap dan menentukan posisi horizontal
+const getHorizontalPosition = (currentIndex: number): string => {
+  if (positionCache.has(currentIndex)) return positionCache.get(currentIndex)!
+
+  const current = getItemBounds(data[currentIndex])
+
+  for (let i = 0; i < currentIndex; i++) {
+    const prev = getItemBounds(data[i])
+
+    if (current.top < prev.bottom + 10 && current.bottom > prev.top - 10) {
+      const prevPos = getHorizontalPosition(i)
+      const pos = prevPos === 'left-40' ? 'left-[420px]' : 'left-40'
+      positionCache.set(currentIndex, pos)
+      return pos
+    }
+  }
+
+  positionCache.set(currentIndex, 'left-40')
+  return 'left-40'
+}
 
   return (
     <div className="relative mx-auto w-full max-w-5xl px-8 py-20 text-white"
@@ -87,7 +106,7 @@ export default function CareerTimeline({ data, startYear, endYear }: CareerTimel
             {/* Year Label */}
             <span
               className="absolute -left-16 text-sm font-semibold text-gray-300"
-              style={{ top: getOffset(year, 1) - 5 }}
+style={{ top: getOffset(year, 1) - 10 }}
             >
               {year}
             </span>
@@ -97,7 +116,7 @@ export default function CareerTimeline({ data, startYear, endYear }: CareerTimel
 
       {/* Career Items */}
       {data.map((item, i) => {
-        const top = getOffset(item.startYear, item.startMonth)
+        const top = getTopPosition(item)
         const height = getItemHeight(item)
         const horizontalPos = getHorizontalPosition(i)
         const bgColor = horizontalPos === 'left-40' ? 'bg-[#0d2b2b]/70' : 'bg-[#1a0f35]/70'
