@@ -39,6 +39,30 @@ export default function CareerTimeline({ data, startYear, endYear }: CareerTimel
     return durationInMonths * pixelsPerMonth - 20 // Kurangi sedikit untuk spacing
   }
 
+  // Fungsi untuk mendeteksi overlap dan menentukan posisi horizontal
+  const getHorizontalPosition = (currentIndex: number): string => {
+    const current = data[currentIndex]
+    const currentTop = getOffset(current.startYear, current.startMonth)
+    const currentBottom = currentTop + getItemHeight(current)
+
+    // Cek overlap dengan item sebelumnya
+    for (let i = 0; i < currentIndex; i++) {
+      const prev = data[i]
+      const prevTop = getOffset(prev.startYear, prev.startMonth)
+      const prevBottom = prevTop + getItemHeight(prev)
+
+      // Jika ada overlap vertikal
+      if (currentTop < prevBottom && currentBottom > prevTop) {
+        // Jika item sebelumnya di kiri, taruh yang sekarang di kanan
+        const prevPosition: string = getHorizontalPosition(i)
+        return prevPosition === 'left-40' ? 'left-[420px]' : 'left-40'
+      }
+    }
+
+    // Default ke kiri jika tidak ada overlap
+    return 'left-40'
+  }
+
   return (
     <div className="relative mx-auto w-full max-w-5xl px-8 py-20 text-white"
          style={{ height: totalHeight }}>
@@ -75,11 +99,13 @@ export default function CareerTimeline({ data, startYear, endYear }: CareerTimel
       {data.map((item, i) => {
         const top = getOffset(item.startYear, item.startMonth)
         const height = getItemHeight(item)
+        const horizontalPos = getHorizontalPosition(i)
+        const bgColor = horizontalPos === 'left-40' ? 'bg-[#0d2b2b]/70' : 'bg-[#1a0f35]/70'
+        
         return (
           <div
             key={i}
-            className={`absolute w-[320px] rounded-xl p-6 shadow-lg transition-transform duration-300 hover:scale-[1.02] 
-                        ${i % 2 === 0 ? 'left-40 bg-[#0d2b2b]/70' : 'left-[420px] bg-[#1a0f35]/70'}`}
+            className={`absolute w-[320px] rounded-xl p-6 shadow-lg transition-transform duration-300 hover:scale-[1.02] ${horizontalPos} ${bgColor}`}
             style={{ top, minHeight: height }}
           >
             <p className="text-sm text-teal-400">
