@@ -13,6 +13,7 @@ import SkillMarquee from "./components/SkillMarquee";
 import HeroSection from "./components/HeroSection";
 import WorkExperience from "./components/WorkExperience";
 import CareerTimeline from './components/CareerTimeline'
+import Projects from './components/Projects'
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -238,7 +239,7 @@ export default function HomePage() {
 
       <SkillMarquee />
 
-      <WorkExperience />
+      <Projects />
 
       <CareerTimeline data={data} startYear={2021} endYear={2025} />
 

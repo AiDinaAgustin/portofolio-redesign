@@ -48,7 +48,7 @@ export default function Contact() {
           </div>
 
           {/* LinkedIn */}
-          <Link href="linkedin.com/in/aidina-agustin/" className="bg-gradient-to-br from-[#14203a] to-[#1f2a4d] rounded-2xl p-6 shadow-lg hover:shadow-indigo-500/30 transition">
+          <Link href="https://linkedin.com/in/aidina-agustin/" className="bg-gradient-to-br from-[#14203a] to-[#1f2a4d] rounded-2xl p-6 shadow-lg hover:shadow-indigo-500/30 transition">
             <div className="flex items-center justify-between mb-3">
               <Linkedin className="w-6 h-6 text-blue-400" />
               <span className="text-sm text-gray-400">Connect with me</span>
