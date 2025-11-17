@@ -27,19 +27,19 @@ export default function CareerTimeline({ data, startYear, endYear }: CareerTimel
 
 const getOffset = (year: number, month: number) => {
   // Hitung offset dari startYear January (paling bawah = 0)
-  // Semakin ke atas (tahun lebih baru), offset semakin besar
-  const monthsFromStart = (year - startYear) * 12 + (month - 1)
+  // month 1 = Jan (titik ke-1), month 7 = Jul (titik ke-7), month 12 = Dec (titik ke-12)
+  const monthsFromStart = (year - startYear) * 12 + month
   // Balik: yang paling lama (2021 Jan) = totalHeight, yang paling baru (2025 Dec) = 0
   return totalHeight - (monthsFromStart * pixelsPerMonth)
 }
 
 
   const getItemHeight = (item: CareerItem) => {
-    // Hitung durasi dalam bulan
-    const startMonths = (item.startYear - startYear) * 12 + item.startMonth - 1
+    // Hitung durasi dalam bulan (konsisten dengan getOffset tanpa -1)
+    const startMonths = (item.startYear - startYear) * 12 + item.startMonth
     const endMonths = item.endYear && item.endMonth
-      ? (item.endYear - startYear) * 12 + item.endMonth - 1
-      : (endYear - startYear) * 12 + 11 // Jika masih berlangsung, sampai akhir tahun
+      ? (item.endYear - startYear) * 12 + item.endMonth
+      : (endYear - startYear) * 12 + 12 // Jika masih berlangsung, sampai akhir tahun
     
     const durationInMonths = endMonths - startMonths + 1
     return durationInMonths * pixelsPerMonth - 20 // Kurangi sedikit untuk spacing
@@ -109,8 +109,8 @@ const getTopPosition = (item: CareerItem) => {
 
   // Konversi column index ke class CSS
   const getColumnClass = (column: number): string => {
-    const positions = ['left-40', 'left-[420px]', 'left-[800px]']
-    return positions[column] || 'left-[420px]'
+    const positions = ['left-40', 'left-[520px]', 'left-[900px]']
+    return positions[column] || 'left-[520px]'
   }
 
   return (
@@ -151,10 +151,10 @@ style={{ top: getOffset(year, 1) - 10 }}
         const height = getItemHeight(item)
         const column = getHorizontalPosition(i)
         const horizontalPos = getColumnClass(column)
-        const bgColor = column === 0 ? 'bg-[#0d2b2b]/70' : (column === 1 ? 'bg-[#1a0f35]/70' : 'bg-[#0d2b2b]/70')
+        const bgColor = column === 0 ? 'bg-[#0d2b2b]/70' : (column === 1 ? 'bg-[#1a0f35]/70' : 'bg-[#2b1a0d]/70')
         
         // Hitung posisi horizontal card (dalam pixel)
-        const cardLeftPx = column === 0 ? 160 : (column === 1 ? 420 : 800) // left-40 = 160px, dll
+        const cardLeftPx = column === 0 ? 160 : (column === 1 ? 520 : 900) // left-40 = 160px, left-[520px] = 520px, left-[900px] = 900px
         const timelineLeftPx = 80 // left-20 = 80px
         
         // Posisi titik end date di timeline
@@ -164,26 +164,27 @@ style={{ top: getOffset(year, 1) - 10 }}
         
         return (
           <React.Fragment key={i}>
-            {/* Garis dari card ke titik end date */}
+            {/* Garis horizontal dari titik end date ke card */}
             {endDotTop !== null && (
               <svg
                 className="absolute pointer-events-none"
                 style={{
-                  left: timelineLeftPx,
-                  top: Math.min(top, endDotTop),
-                  width: cardLeftPx - timelineLeftPx,
-                  height: Math.abs(endDotTop - top) + 10
+                  left: 0,
+                  top: 0,
+                  width: '100%',
+                  height: totalHeight,
+                  zIndex: 1
                 }}
               >
                 <line
-                  x1="0"
-                  y1={endDotTop < top ? 0 : Math.abs(endDotTop - top)}
-                  x2={cardLeftPx - timelineLeftPx}
-                  y2={endDotTop < top ? Math.abs(endDotTop - top) : 0}
+                  x1={timelineLeftPx}
+                  y1={endDotTop + 128}
+                  x2={cardLeftPx}
+                  y2={endDotTop + 128}
                   stroke={column === 0 ? '#2dd4bf' : '#a78bfa'}
                   strokeWidth="1.5"
                   strokeDasharray="4 4"
-                  opacity="0.5"
+                  opacity="0.6"
                 />
               </svg>
             )}
@@ -191,7 +192,7 @@ style={{ top: getOffset(year, 1) - 10 }}
             {/* Card */}
             <div
               className={`absolute w-[320px] rounded-xl p-6 shadow-lg transition-transform duration-300 hover:scale-[1.02] ${horizontalPos} ${bgColor}`}
-              style={{ top, minHeight: height }}
+              style={{ top: top + 128, minHeight: height, zIndex: 2 }}
             >
               <p className="text-sm text-teal-400">
                 {item.endYear && item.endMonth
