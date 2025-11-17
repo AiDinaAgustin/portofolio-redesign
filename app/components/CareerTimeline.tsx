@@ -114,16 +114,28 @@ const getTopPosition = (item: CareerItem) => {
   }
 
   return (
-    <div className="relative mx-auto w-full max-w-5xl px-8 py-20 text-white"
-         style={{ height: totalHeight }}>
-      {/* Title */}
-      <div className="absolute top-0 left-0">
-        <h1 className="text-5xl font-extrabold">Career</h1>
-        <p className="text-gray-400">My professional path</p>
+    <section className="py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* Header */}
+        <div className="mx-auto max-w-7xl flex justify-between items-center">
+          <div className="flex-1 max-w-xs">
+            <p className="text-sm text-gray-400 leading-relaxed">
+              Whether it&apos;s designing a sleek user interface or writing code that brings it to life.
+            </p>
+          </div>
+          <div className="flex-1 text-right">
+            <h2 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl leading-tight">
+              A Yearly Snapshot Of My Creative Growth
+            </h2>
+          </div>
+        </div>
       </div>
 
+      <div className="relative mx-auto w-full max-w-7xl px-8 text-white"
+           style={{ height: totalHeight }}>
+
       {/* Timeline line */}
-      <div className="absolute left-20 top-32 h-full w-0.5 bg-linear-to-b from-cyan-400/70 to-purple-700/70">
+      <div className="absolute left-20 top-32 h-full w-0.5">
         {/* Dots for months */}
         {years.map((year) => (
           <div key={year}>
@@ -154,7 +166,7 @@ style={{ top: getOffset(year, 1) - 10 }}
         const bgColor = column === 0 ? 'bg-[#0d2b2b]/70' : (column === 1 ? 'bg-[#1a0f35]/70' : 'bg-[#2b1a0d]/70')
         
         // Hitung posisi horizontal card (dalam pixel)
-        const cardLeftPx = column === 0 ? 160 : (column === 1 ? 520 : 900) // left-40 = 160px, left-[520px] = 520px, left-[900px] = 900px
+        const cardLeftPx = column === 0 ? 160 : (column === 1 ? 520 : 1000) // left-40 = 160px, left-[520px] = 520px, left-[1000px] = 1000px
         const timelineLeftPx = 80 // left-20 = 80px
         
         // Posisi titik end date di timeline
@@ -166,27 +178,39 @@ style={{ top: getOffset(year, 1) - 10 }}
           <React.Fragment key={i}>
             {/* Garis horizontal dari titik end date ke card */}
             {endDotTop !== null && (
-              <svg
-                className="absolute pointer-events-none"
-                style={{
-                  left: 0,
-                  top: 0,
-                  width: '100%',
-                  height: totalHeight,
-                  zIndex: 1
-                }}
-              >
-                <line
-                  x1={timelineLeftPx}
-                  y1={endDotTop + 128}
-                  x2={cardLeftPx}
-                  y2={endDotTop + 128}
-                  stroke={column === 0 ? '#2dd4bf' : '#a78bfa'}
-                  strokeWidth="1.5"
-                  strokeDasharray="4 4"
-                  opacity="0.6"
+              <>
+                <svg
+                  className="absolute pointer-events-none"
+                  style={{
+                    left: 0,
+                    top: 0,
+                    width: '100%',
+                    height: totalHeight,
+                    zIndex: 1
+                  }}
+                >
+                  <line
+                    x1={timelineLeftPx}
+                    y1={endDotTop + 128}
+                    x2={cardLeftPx}
+                    y2={endDotTop + 128}
+                    stroke={column === 0 ? '#2dd4bf' : (column === 1 ? '#a78bfa' : '#fb923c')}
+                    strokeWidth="1.5"
+                    strokeDasharray="4 4"
+                    opacity="0.6"
+                  />
+                </svg>
+                
+                {/* Titik end date berwarna sesuai card */}
+                <div
+                  className="absolute left-20 w-2 h-2 -translate-x-1 rounded-full z-10"
+                  style={{
+                    top: endDotTop + 128 - 4,
+                    backgroundColor: column === 0 ? '#2dd4bf' : (column === 1 ? '#a78bfa' : '#fb923c'),
+                    boxShadow: `0 0 8px ${column === 0 ? '#2dd4bf' : (column === 1 ? '#a78bfa' : '#fb923c')}`
+                  }}
                 />
-              </svg>
+              </>
             )}
             
             {/* Card */}
@@ -209,7 +233,8 @@ style={{ top: getOffset(year, 1) - 10 }}
           </React.Fragment>
         )
       })}
-    </div>
+      </div>
+    </section>
   )
 }
 
